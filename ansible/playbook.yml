@@ -1,0 +1,9 @@
+
+- name: Setup an ELK Node
+  hosts: all
+
+  roles:
+    #- { role: ping, tags: ping }
+    - { role: elasticsearch, tags: elasticsearch }
+
+
