@@ -12,12 +12,25 @@
     name: kibana
     state: present
 
-#- name: Lower memory requirements to 512 MB
-#  lineinfile:
-#    path: /etc/elasticsearch/jvm.options
-#    regexp: ^-Xmx
-#    line: -Xmx512m
-#  notify: restart elasticsearch
+- name: Install Nginx
+  package: 
+    name: nginx
+    state: present
+
+- name: Remove default nginx site
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: restart nginx
+  tags: kibana-nginx
+
+- name: Install kibana.conf for Nginx
+  copy:
+    src: files/kibana.conf
+    dest: /etc/nginx/sites-enabled/kibana.conf
+  notify: restart nginx
+  tags: kibana-nginx
+
 
 - name: Start Kibana service
   service:
