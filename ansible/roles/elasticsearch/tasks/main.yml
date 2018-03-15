@@ -1,0 +1,41 @@
+
+- name: Install Package Key
+  apt_key: 
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+- name: Install repo
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/6.x/apt stable main
+
+- name: Install Java
+  package:
+    #name: openjdk-9-jre # This prevents Elasticsearch from starting, so we'll use 8 for now...
+    name: openjdk-8-jre
+    state: present
+
+- name: Install Elasticsearch
+  package: 
+    name: elasticsearch
+    state: present
+
+- name: Lower memory requirements to 512 MB
+  lineinfile:
+    path: /etc/elasticsearch/jvm.options
+    regexp: ^-Xms
+    line: -Xms512m
+  notify: restart elasticsearch
+
+- name: Lower memory requirements to 512 MB
+  lineinfile:
+    path: /etc/elasticsearch/jvm.options
+    regexp: ^-Xmx
+    line: -Xmx512m
+  notify: restart elasticsearch
+
+- name: Start Elasticsearch service
+  service:
+    name: elasticsearch
+    state: started
+    enabled: yes
+
+
