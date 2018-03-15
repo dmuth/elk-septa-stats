@@ -1,0 +1,28 @@
+
+- name: Install Package Key
+  apt_key: 
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+- name: Install repo
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/6.x/apt stable main
+
+- name: Install Kibana
+  package: 
+    name: kibana
+    state: present
+
+#- name: Lower memory requirements to 512 MB
+#  lineinfile:
+#    path: /etc/elasticsearch/jvm.options
+#    regexp: ^-Xmx
+#    line: -Xmx512m
+#  notify: restart elasticsearch
+
+- name: Start Kibana service
+  service:
+    name: kibana
+    state: started
+    enabled: yes
+
+
