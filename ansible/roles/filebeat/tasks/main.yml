@@ -1,0 +1,27 @@
+
+- name: Install Package Key
+  apt_key: 
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+- name: Install repo
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/6.x/apt stable main
+
+- name: Install Filebeat
+  package: 
+    name: filebeat
+    state: present
+
+- name: Install filebeat.yml
+  copy:
+    src: files/filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
+  notify: restart filebeat
+  tags: filebeat-config
+
+- name: Start Filebeat service
+  service:
+    name: filebeat
+    state: started
+    enabled: yes
+
