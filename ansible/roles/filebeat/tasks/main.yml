@@ -25,3 +25,15 @@
     state: started
     enabled: yes
 
+- name: Install Metricbeat
+  package: 
+    name: metricbeat
+    state: present
+
+- name: Start Metricbeat service
+  service:
+    name: metricbeat
+    state: started
+    enabled: yes
+
+
