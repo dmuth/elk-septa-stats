@@ -3,8 +3,9 @@
   hosts: all
 
   roles:
-    #- { role: ping, tags: ping }
+    - { role: ping, tags: ping }
     - { role: elasticsearch, tags: elasticsearch }
     - { role: kibana, tags: kibana }
+    - { role: filebeat, tags: filebeat }
 
 
