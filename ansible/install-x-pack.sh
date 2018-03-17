@@ -26,6 +26,11 @@ then
 	echo "# "
 	/usr/share/elasticsearch/bin/elasticsearch-plugin install file:///vagrant/x-pack-6.2.2.zip
 
+	echo "# "
+	echo "# Setting up passwords..."
+	echo "# "
+	/usr/share/elasticsearch/bin/x-pack/setup-passwords interactive
+
 else
 	echo "# "
 	echo "# X-Pack is already installed for Elasticsearch, skipping!"
