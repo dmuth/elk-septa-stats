@@ -1,0 +1,28 @@
+
+- name: Install Package Key
+  apt_key: 
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+- name: Install repo
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/6.x/apt stable main
+
+- name: Install Logstash
+  package: 
+    name: logstash
+    state: present
+
+- name: Install logstash conf
+  copy:
+    src: files/main.conf
+    dest: /etc/logstash/conf.d/main.conf
+  notify: restart logstash
+  tags: logstash-config
+
+- name: Start Logstash service
+  service:
+    name: logstash
+    state: started
+    enabled: yes
+
+
