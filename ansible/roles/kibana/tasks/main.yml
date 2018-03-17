@@ -12,6 +12,18 @@
     name: kibana
     state: present
 
+- name: Install kibana.yml
+  copy:
+    src: files/kibana.yml
+    dest: /etc/kibana/kibana.yml
+  notify: restart kibana
+
+- name: Set permissions on /var/log/kibana
+  file:
+    path: /var/log/kibana
+    owner: kibana
+    state: touch
+
 - name: Install Nginx
   package: 
     name: nginx
