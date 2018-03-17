@@ -29,6 +29,14 @@ then
 	echo "# "
 	echo "# Setting up passwords..."
 	echo "# "
+	echo "# For compatability with configuration files in Ansible, we recommend the following:"
+	echo "# 	elastic/elasticpw"
+	echo "# 	kibana/kibanapw"
+	echo "# 	logstash/logstashpw"
+	echo "# "
+	echo "# Oh, did I mention this is intended for local development ONLY?"
+	echo "# If you are putting this installation on the Internet, DO NOT USE THESE PASSWORDS."
+	echo "# "
 	/usr/share/elasticsearch/bin/x-pack/setup-passwords interactive
 
 else
