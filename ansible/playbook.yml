@@ -8,5 +8,6 @@
     - { role: kibana, tags: kibana }
     - { role: logstash, tags: logstash }
     - { role: filebeat, tags: filebeat }
+    - { role: septa, tags: septa }
 
 
