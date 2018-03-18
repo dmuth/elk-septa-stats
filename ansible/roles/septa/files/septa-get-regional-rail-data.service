@@ -4,6 +4,12 @@ Description=SEPTA Regional Rail Data
 [Service]
 Type=simple
 
+#
+# Restart after a 5 second pause, this should keep us from hitting a 
+# rate limit if there are DNS issues.
+#
+RestartSec=5
+
 User=nobody
 Group=nogroup
 
