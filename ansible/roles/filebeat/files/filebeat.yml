@@ -73,6 +73,19 @@ filebeat.prospectors:
   #json.message_key: log
 
 
+#
+# Log our train data
+#
+- type: log
+
+  paths:
+    - /var/log/septa-stats
+
+  json.keys_under_root: true
+  json.add_error_key: true
+  #json.message_key: log
+
+
 #============================= Filebeat modules ===============================
 
 filebeat.config.modules:
