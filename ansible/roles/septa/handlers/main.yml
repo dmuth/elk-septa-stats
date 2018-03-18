@@ -1,0 +1,5 @@
+
+- name: restart septa-get-regional-rail-data
+  service: name=septa-get-regional-rail-data state=restarted
+
+

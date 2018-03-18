@@ -1,0 +1,22 @@
+[Unit]
+Description=SEPTA Regional Rail Data
+ 
+[Service]
+Type=simple
+
+User=nobody
+Group=nogroup
+
+#
+# Got this idea for redirecting output from https://stackoverflow.com/a/37595720/196073
+#
+# It's not the most elegant, but it works for now.
+#
+ExecStart=/bin/sh -c "/usr/local/bin/septa-get-regional-rail-data-wrapper.sh >> /var/log/septa-stats.log"
+
+Restart=always
+WorkingDirectory=/
+
+[Install]
+WantedBy=multi-user.target
+

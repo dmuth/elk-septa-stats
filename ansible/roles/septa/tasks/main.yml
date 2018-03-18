@@ -1,0 +1,53 @@
+
+
+- name: Fix "can't drop privileges" error
+  file:
+    path: /var/lib/update-notifier/package-data-downloads/partial/
+    owner: _apt
+
+- name: Install PHP
+  package: 
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - php-cli
+    - php-curl
+
+- name: Install PHP script to read Regional Rail data
+  copy:
+    src: files/septa-get-regional-rail-data.php
+    dest: /usr/local/bin/septa-get-regional-rail-data.php
+    mode: 0755
+  notify: restart septa-get-regional-rail-data
+
+- name: Install wrapper script for Regional Rail data
+  copy:
+    src: files/septa-get-regional-rail-data-wrapper.sh
+    dest: /usr/local/bin/septa-get-regional-rail-data-wrapper.sh
+    mode: 0755
+  notify: restart septa-get-regional-rail-data
+
+- name: Install septa-get-regional-rail-data service
+  copy:
+    src: files/septa-get-regional-rail-data.service
+    dest: /etc/systemd/system/septa-get-regional-rail-data.service
+  register: septa_service
+
+- name: Reload systemctl because the service file changed
+  command: systemctl daemon-reload
+  when: septa_service.changed
+
+- name: Set owner of logfile
+  file:
+    path: /var/log/septa-stats.log
+    state: touch
+    owner: nobody
+    group: nogroup
+
+- name: Start SEPTA Regional Rail service
+  service:
+    name: septa-get-regional-rail-data
+    state: started
+    enabled: yes
+
+
