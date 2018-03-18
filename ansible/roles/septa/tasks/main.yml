@@ -36,10 +36,11 @@
 - name: Reload systemctl because the service file changed
   command: systemctl daemon-reload
   when: septa_service.changed
+  notify: restart septa-get-regional-rail-data
 
 - name: Set owner of logfile
   file:
-    path: /var/log/septa-stats.log
+    path: /var/log/septa-stats
     state: touch
     owner: nobody
     group: nogroup

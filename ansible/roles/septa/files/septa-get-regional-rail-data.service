@@ -1,6 +1,6 @@
 [Unit]
 Description=SEPTA Regional Rail Data
- 
+
 [Service]
 Type=simple
 
@@ -12,7 +12,7 @@ Group=nogroup
 #
 # It's not the most elegant, but it works for now.
 #
-ExecStart=/bin/sh -c "/usr/local/bin/septa-get-regional-rail-data-wrapper.sh >> /var/log/septa-stats.log"
+ExecStart=/bin/sh -c "/usr/local/bin/septa-get-regional-rail-data-wrapper.sh >> /var/log/septa-stats"
 
 Restart=always
 WorkingDirectory=/
