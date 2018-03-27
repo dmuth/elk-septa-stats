@@ -92,6 +92,54 @@ function add_timestamp($data, $timestamp) {
 
 
 /**
+* Add lines for our total late per line and overall total.
+* 
+* @param array $totals Our totals per line
+*
+* @param integer $total_late How many total minutes late?
+*
+* @param string $timestamp The current timestamp
+*
+* @return string A string with one JSON row per piece of late data, with timestamp data added.
+*
+*/
+function get_totals($totals, $total_late, $timestamp) {
+
+	$retval = "";
+
+	//
+	// Go through our totals and create a row for each line.
+	//
+	foreach ($totals as $key => $value) {
+
+		$value = array(
+			"type" => "line_late",
+			"line" => $key,
+			"late" => $value,
+			);
+	
+		$row = add_timestamp($value, $timestamp);
+		$retval .= $row . "\n";
+
+	}
+
+
+	//
+	// Create one more row, which holds our total number of minutes late.
+	//
+	$value = array(
+		"type" => "total_late",
+		"late" => $total_late,
+		);
+	$row = add_timestamp($value, $timestamp);
+	$retval .= $row . "\n";
+
+	return($retval);
+
+} // End of get_totals()
+
+
+/**
 * Split our JSON into one line per array element (train).
 *
 * @param string $json The JSON we got from SEPTA
@@ -147,32 +195,7 @@ function get_lines($json, $timestamp) {
 
 	}
 
-	//
-	// Go through our totals and create a row for each line.
-	//
-	foreach ($totals as $key => $value) {
-
-		$value = array(
-			"type" => "line_late",
-			"line" => $key,
-			"late" => $value,
-			);
-	
-		$row = add_timestamp($value, $timestamp);
-		$retval .= $row . "\n";
-
-	}
-
-
-	//
-	// Create one more row, which holds our total number of minutes late.
-	//
-	$value = array(
-		"type" => "total_late",
-		"late" => $total_late,
-		);
-	$row = add_timestamp($value, $timestamp);
-	$retval .= $row . "\n";
+	$retval .= get_totals($totals, $total_late, $timestamp);
 
 	//return(null); // Debugging
 	return($retval);
