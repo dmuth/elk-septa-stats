@@ -101,9 +101,11 @@ function add_timestamp($data, $timestamp) {
 * @return string A string with one JSON row per train, with timestamp data added.
 *
 */
-function parse_line($json, $timestamp) {
+function get_lines($json, $timestamp) {
 
 	$retval = "";
+
+	$total_late = 0;
 
 	$data = json_decode($json, true);
 	//$data = "bad data"; // Debugging
@@ -116,11 +118,13 @@ function parse_line($json, $timestamp) {
 				$row = add_timestamp($value, $timestamp);
 				$retval .= $row . "\n";
 
+				$total_late += $value["late"];
+
 			}
 
 		} else {
 			//
-			// We got some kind error, so insert our timestamp and that's it
+			// We got some kind of error, so insert our timestamp and that's it
 			//
 			$data["_timestamp"] = $timestamp;
 			$row = json_encode($data);
@@ -133,9 +137,20 @@ function parse_line($json, $timestamp) {
 
 	}
 
+	//
+	// Create one more row, which holds our total number of minutes late.
+	//
+	$value = array(
+		"type" => "total_late",
+		"late" => $total_late,
+		);
+	$row = add_timestamp($value, $timestamp);
+	$retval .= $row . "\n";
+
+	//return(null); // Debugging
 	return($retval);
 
-} // End of parse_lines()
+} // End of get_lines()
 
 
 /**
@@ -151,7 +166,7 @@ function main() {
 	try {
 		$json = get_json($url);
 		$timestamp = get_timestamp();
-		$lines = parse_line($json, $timestamp);
+		$lines = get_lines($json, $timestamp);
 
 	} catch (Exception $e) {
 		print "ERROR: " .$e->getMessage() . "\n";
