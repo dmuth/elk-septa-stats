@@ -164,11 +164,15 @@ function get_lines($json, $timestamp) {
 		if (!isset($data["error"])) {
 
 			foreach ($data as $key => $value) {
-				$row = add_timestamp($value, $timestamp);
-				$retval .= $row . "\n";
 
+				$trainno = $value["trainno"];
 				$line = $value["line"];
 				$late = $value["late"];
+
+				$value["trainno_line"] = $trainno . "_" . $line;
+
+				$row = add_timestamp($value, $timestamp);
+				$retval .= $row . "\n";
 
 				if (!isset($totals[$line])) {
 					$totals[$line] = 0;
