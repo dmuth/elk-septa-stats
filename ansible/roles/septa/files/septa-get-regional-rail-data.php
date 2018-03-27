@@ -105,6 +105,7 @@ function get_lines($json, $timestamp) {
 
 	$retval = "";
 
+	$totals = array();
 	$total_late = 0;
 
 	$data = json_decode($json, true);
@@ -118,7 +119,16 @@ function get_lines($json, $timestamp) {
 				$row = add_timestamp($value, $timestamp);
 				$retval .= $row . "\n";
 
-				$total_late += $value["late"];
+				$line = $value["line"];
+				$late = $value["late"];
+
+				if (!isset($totals[$line])) {
+					$totals[$line] = 0;
+				}
+
+				$totals[$line] += $late;
+
+				$total_late += $late;
 
 			}
 
@@ -136,6 +146,23 @@ function get_lines($json, $timestamp) {
 		print "ERROR: I don't know what to do with this data: $data\n";
 
 	}
+
+	//
+	// Go through our totals and create a row for each line.
+	//
+	foreach ($totals as $key => $value) {
+
+		$value = array(
+			"type" => "line_late",
+			"line" => $key,
+			"late" => $value,
+			);
+	
+		$row = add_timestamp($value, $timestamp);
+		$retval .= $row . "\n";
+
+	}
+
 
 	//
 	// Create one more row, which holds our total number of minutes late.
