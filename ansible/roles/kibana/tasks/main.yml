@@ -9,7 +9,7 @@
 
 - name: Install Kibana
   package: 
-    name: kibana
+    name: kibana=6.2.2
     state: present
 
 - name: Install kibana.yml

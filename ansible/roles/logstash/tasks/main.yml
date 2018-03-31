@@ -9,7 +9,7 @@
 
 - name: Install Logstash
   package: 
-    name: logstash
+    name: logstash=1:6.2.2-1
     state: present
 
 - name: Install logstash conf

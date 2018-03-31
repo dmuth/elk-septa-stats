@@ -9,7 +9,7 @@
 
 - name: Install Filebeat
   package: 
-    name: filebeat
+    name: filebeat=6.2.2
     state: present
 
 - name: Install filebeat.yml

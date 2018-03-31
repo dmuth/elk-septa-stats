@@ -15,7 +15,7 @@
 
 - name: Install Elasticsearch
   package: 
-    name: elasticsearch
+    name: elasticsearch=6.2.2
     state: present
 
 - name: Lower memory requirements to 512 MB
