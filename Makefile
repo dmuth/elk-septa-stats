@@ -3,6 +3,7 @@ all:
 	@echo "#"
 	@echo "# 1) Run 'make download' to download X-Pack!"
 	@echo "# 2) Run 'make setup' to run Ansible against the Vagrant instance."
+	@echo "# 3) Run 'vagrant ssh' and then '/vagrant/ansible/install-x-pack.sh /vagrant/x-pack-6.2.2.zip'"
 	@echo "#"
 
 download:
