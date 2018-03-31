@@ -9,6 +9,7 @@ download:
 	@wget --no-clobber https://artifacts.elastic.co/downloads/packs/x-pack/x-pack-6.2.2.zip
 
 setup:
+	@vagrant up
 	@cd ansible && ansible-playbook -i ./inventory ./playbook.yml
 	@echo "# "
 	@echo "# Ansible is complete!  At this point, you should be able to log into Kibana"
