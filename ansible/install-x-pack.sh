@@ -6,6 +6,24 @@
 # Errors are fatal
 set -e
 
+if test ! "$1"
+then
+	echo "! "
+	echo "! Syntax: $0 (path to x-pack ZIP file)"
+	echo "! "
+	exit 1
+fi
+
+FILE=$1
+
+if test ! -f "$FILE"
+then
+	echo "!"
+	echo "! File '$FILE' is not readable, stopping!"
+	echo "!"
+	exit 1
+fi
+
 echo "# "
 echo "# Stopping Elasticsearch..."
 echo "# "
@@ -24,7 +42,7 @@ then
 	echo "# "
 	echo "# Some interactive input may be required..."
 	echo "# "
-	/usr/share/elasticsearch/bin/elasticsearch-plugin install file:///vagrant/x-pack-6.2.2.zip
+	/usr/share/elasticsearch/bin/elasticsearch-plugin install file://${FILE}
 
 	echo "# "
 	echo "# Setting up passwords..."
@@ -56,7 +74,7 @@ then
 	echo "# "
 	echo "# This may take up 5 minutes.  DON'T PANIC."
 	echo "# "
-	/usr/share/kibana/bin/kibana-plugin install file:///vagrant/x-pack-6.2.2.zip
+	/usr/share/kibana/bin/kibana-plugin install file://${FILE}
 
 else
 	echo "# "
