@@ -178,9 +178,10 @@ function get_lines($json, $timestamp) {
 					$totals[$line] = 0;
 				}
 
-				$totals[$line] += $late;
-
-				$total_late += $late;
+				if ($late != 999) {
+					$totals[$line] += $late;
+					$total_late += $late;
+				}
 
 			}
 
