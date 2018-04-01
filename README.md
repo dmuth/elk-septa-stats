@@ -23,6 +23,12 @@ Once Ansible is complete, there will be a service in the VM called `septa-get-re
 which will hit the SEPTA Regional Rail API every 50 seconds or so, grab train data, and write it to 
 `/var/log/septa-stats`.
 
+### Development
+
+If you are doing development and want to run Ansible by hand, cd into the `ansible/` directory and run:
+
+`ansible-playbook -i ./inventory ./playbook.yml`
+
 
 ## Usage
 
