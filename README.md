@@ -76,6 +76,7 @@ A sample dashboard I put together with the current project:
 
 ## TODO
 
+- Try some Machine Learning on lateness by system and lateness by line
 - Logrotate on `/var/log/septa-stats` file.
 - Figure out how to export visualizations from the `.kibana` Index.
 - Figure out how to embed reports in a public-facing website.
