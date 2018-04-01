@@ -69,7 +69,8 @@ There are a few key differences that made development of this system more challe
 
 ## Screenshots
 
-((TODO))
+A sample dashboard I put together with the current project:
+<img src="img/Kibana-SEPTA-Dashboard.png" />
 
 
 ## TODO
