@@ -5,6 +5,7 @@ An ELK-based attempt to pulling down stats from SEPTA's Regional Rail API.
 Essentially, I am attempting to do what I did in Splunk for <a href="https://www.SeptaStats.com/">Septa Stats</a>
 and do it with ELK.
 
+<a href="img/Kibana-SEPTA-Visualization-Trains-By-Line.png"><img src="img/Kibana-SEPTA-Visualization-Trains-By-Line.png" width="350" align="right" /></a>
 
 ## Prerequisites
 
