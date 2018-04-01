@@ -11,7 +11,7 @@ download:
 
 setup:
 	@vagrant up
-	@cd ansible && ansible-playbook -i ./inventory ./playbook.yml
+	cd ansible && ansible-playbook -i ./inventory ./playbook.yml
 	@echo "# "
 	@echo "# Ansible is complete!  At this point, you should be able to log into Kibana"
 	@echo "# at http://localhost:5601/ with the login/pw elastic/elasticpw"
